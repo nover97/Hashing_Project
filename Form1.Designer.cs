@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.orgnTBx = new System.Windows.Forms.RichTextBox();
             this.md5ChkBx = new System.Windows.Forms.CheckBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.md5TBx = new System.Windows.Forms.TextBox();
             this.md5CpyBtn = new System.Windows.Forms.Button();
             this.sha1CpyBtn = new System.Windows.Forms.Button();
@@ -52,6 +50,7 @@
             this.upcChkBx = new System.Windows.Forms.CheckBox();
             this.delFileBtn = new System.Windows.Forms.Button();
             this.fileNameTBx = new System.Windows.Forms.TextBox();
+            this.hexChkBx = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // orgnTBx
@@ -77,11 +76,6 @@
             this.md5ChkBx.Text = "MD5 Hash";
             this.md5ChkBx.UseVisualStyleBackColor = true;
             this.md5ChkBx.CheckedChanged += new System.EventHandler(this.md5ChkBx_CheckedChanged);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // md5TBx
             // 
@@ -220,7 +214,7 @@
             this.sha512ChkBx.Name = "sha512ChkBx";
             this.sha512ChkBx.Size = new System.Drawing.Size(97, 17);
             this.sha512ChkBx.TabIndex = 15;
-            this.sha512ChkBx.Text = "SHA-256 Hash";
+            this.sha512ChkBx.Text = "SHA-512 Hash";
             this.sha512ChkBx.UseVisualStyleBackColor = true;
             this.sha512ChkBx.CheckedChanged += new System.EventHandler(this.sha512ChkBx_CheckedChanged);
             // 
@@ -265,7 +259,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 39);
+            this.label1.Location = new System.Drawing.Point(16, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 18;
@@ -310,12 +304,13 @@
             this.delFileBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.delFileBtn.BackColor = System.Drawing.Color.Firebrick;
             this.delFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.delFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.delFileBtn.ForeColor = System.Drawing.Color.White;
             this.delFileBtn.Location = new System.Drawing.Point(701, 84);
             this.delFileBtn.Name = "delFileBtn";
             this.delFileBtn.Size = new System.Drawing.Size(75, 23);
             this.delFileBtn.TabIndex = 22;
-            this.delFileBtn.Text = "DELETE";
+            this.delFileBtn.Text = "DELETE FILE";
             this.delFileBtn.UseVisualStyleBackColor = false;
             this.delFileBtn.Click += new System.EventHandler(this.delFileBtn_Click);
             // 
@@ -330,6 +325,17 @@
             this.fileNameTBx.Size = new System.Drawing.Size(499, 20);
             this.fileNameTBx.TabIndex = 23;
             // 
+            // hexChkBx
+            // 
+            this.hexChkBx.AutoSize = true;
+            this.hexChkBx.Location = new System.Drawing.Point(14, 50);
+            this.hexChkBx.Name = "hexChkBx";
+            this.hexChkBx.Size = new System.Drawing.Size(83, 17);
+            this.hexChkBx.TabIndex = 24;
+            this.hexChkBx.Text = "HEX Format";
+            this.hexChkBx.UseVisualStyleBackColor = true;
+            this.hexChkBx.CheckedChanged += new System.EventHandler(this.hexChkBx_CheckedChanged);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -338,6 +344,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(787, 332);
+            this.Controls.Add(this.hexChkBx);
             this.Controls.Add(this.fileNameTBx);
             this.Controls.Add(this.delFileBtn);
             this.Controls.Add(this.upcChkBx);
@@ -372,7 +379,6 @@
 
         private System.Windows.Forms.RichTextBox orgnTBx;
         private System.Windows.Forms.CheckBox md5ChkBx;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.TextBox md5TBx;
         private System.Windows.Forms.Button md5CpyBtn;
         private System.Windows.Forms.Button sha1CpyBtn;
@@ -393,6 +399,7 @@
         private System.Windows.Forms.CheckBox upcChkBx;
         private System.Windows.Forms.Button delFileBtn;
         private System.Windows.Forms.TextBox fileNameTBx;
+        private System.Windows.Forms.CheckBox hexChkBx;
     }
 }
 
