@@ -14,6 +14,7 @@ namespace Hashing_Project {
     public partial class Form1 : Form {
         private string oText = "";
         private string oFile = "";
+        private byte[] oByte = {};
         private bool upc = false, isFile = false;
         private bool isHex = false, isHexValidated = false;
 
@@ -73,13 +74,13 @@ namespace Hashing_Project {
             }
             return true;
         }
-        public string mD5_Hash( string text ) {
+        public string mD5_Hash( byte[] Byte ) {
             if (isHex && !isHexValidated)
                 return "Please check your HexaDecimal input!";
 
             MD5 md5 = new MD5CryptoServiceProvider();
             //compute hash from the bytes of text
-            md5.ComputeHash(isHex ? ConvertHex(text) : ASCIIEncoding.ASCII.GetBytes(text));
+            md5.ComputeHash(Byte);
 
             //get hash result after compute it  
             byte[] result = md5.Hash;
@@ -93,12 +94,12 @@ namespace Hashing_Project {
 
             return strBuilder.ToString().ToLower();
         }
-        public string sha1_Hash( string text ) {
+        public string sha1_Hash( byte[] Byte ) {
             if (isHex && !isHexValidated)
                 return "Please check your HexaDecimal input!";
 
             SHA1 sha1 = new SHA1CryptoServiceProvider();
-            sha1.ComputeHash(isHex ? ConvertHex(text) : ASCIIEncoding.ASCII.GetBytes(text));
+            sha1.ComputeHash(Byte);
 
             byte[] result = sha1.Hash;
             StringBuilder sb = new StringBuilder();
@@ -108,12 +109,12 @@ namespace Hashing_Project {
 
             return sb.ToString().ToLower();
         }
-        public string sha256_Hash( string text ) {
+        public string sha256_Hash( byte[] Byte ) {
             if (isHex && !isHexValidated)
                 return "Please check your HexaDecimal input!";
 
             SHA256 sha256 = new SHA256CryptoServiceProvider();
-            sha256.ComputeHash(isHex ? ConvertHex(text) : ASCIIEncoding.ASCII.GetBytes(text));
+            sha256.ComputeHash(Byte);
 
             byte[] result = sha256.Hash;
             StringBuilder sb = new StringBuilder();
@@ -123,12 +124,12 @@ namespace Hashing_Project {
 
             return sb.ToString().ToLower();
         }
-        public string sha384_Hash( string text ) {
+        public string sha384_Hash( byte[] Byte ) {
             if (isHex && !isHexValidated)
                 return "Please check your HexaDecimal input!";
 
             SHA384 sha384 = new SHA384CryptoServiceProvider();
-            sha384.ComputeHash(isHex ? ConvertHex(text) : ASCIIEncoding.ASCII.GetBytes(text));
+            sha384.ComputeHash(Byte);
 
             byte[] result = sha384.Hash;
             StringBuilder sb = new StringBuilder();
@@ -138,12 +139,12 @@ namespace Hashing_Project {
 
             return sb.ToString().ToLower();
         }
-        public string sha512_Hash( string text ) {
+        public string sha512_Hash( byte[] Byte ) {
             if (isHex && !isHexValidated)
                 return "Please check your HexaDecimal input!";
 
             SHA512 sha512 = new SHA512CryptoServiceProvider();
-            sha512.ComputeHash(isHex ? ConvertHex(text) : ASCIIEncoding.ASCII.GetBytes(text));
+            sha512.ComputeHash(Byte);
 
             byte[] result = sha512.Hash;
             StringBuilder sb = new StringBuilder();
@@ -212,27 +213,27 @@ namespace Hashing_Project {
         }
 
         private void md5Show() {
-            string hash = isFile ? md5_FileHash(oFile) : mD5_Hash(oText);
+            string hash = isFile ? md5_FileHash(oFile) : mD5_Hash(oByte);
             md5TBx.Text = md5ChkBx.Checked ? hash : "Your MD5 hash will appear here";
             md5TBx.Text = upc ? md5TBx.Text.ToUpper() : md5TBx.Text;
         }
         private void sha1Show() {
-            string hash = isFile ? sha1_FileHash(oFile) : sha1_Hash(oText);
+            string hash = isFile ? sha1_FileHash(oFile) : sha1_Hash(oByte);
             sha1TBx.Text = sha1ChkBx.Checked ? hash : "Your SHA-1 hash will appear here";
             sha1TBx.Text = upc ? sha1TBx.Text.ToUpper() : sha1TBx.Text;
         }
         private void sha256Show() {
-            string hash = isFile ? sha256_FileHash(oFile) : sha256_Hash(oText);
+            string hash = isFile ? sha256_FileHash(oFile) : sha256_Hash(oByte);
             sha256TBx.Text = sha256ChkBx.Checked ? hash : "Your SHA-256 hash will appear here";
             sha256TBx.Text = upc ? sha256TBx.Text.ToUpper() : sha256TBx.Text;
         }
         private void sha384Show() {
-            string hash = isFile ? sha384_FileHash(oFile) : sha384_Hash(oText);
+            string hash = isFile ? sha384_FileHash(oFile) : sha384_Hash(oByte);
             sha384TBx.Text = sha384ChkBx.Checked ? hash : "Your SHA-384 hash will appear here";
             sha384TBx.Text = upc ? sha384TBx.Text.ToUpper() : sha384TBx.Text;
         }
         private void sha512Show() {
-            string hash = isFile ? sha512_FileHash(oFile) : sha512_Hash(oText);
+            string hash = isFile ? sha512_FileHash(oFile) : sha512_Hash(oByte);
             sha512TBx.Text = sha512ChkBx.Checked ? hash : "Your SHA-512 hash will appear here";
             sha512TBx.Text = upc ? sha512TBx.Text.ToUpper() : sha512TBx.Text;
         }
@@ -255,6 +256,7 @@ namespace Hashing_Project {
                 oText = oText.ToLower();
                 isHexValidated = hexValidate(oText);
             }
+            oByte = isHex ? ConvertHex(oText) : ASCIIEncoding.ASCII.GetBytes(oText);
             allShow();
         }
 
@@ -332,9 +334,12 @@ namespace Hashing_Project {
 
         private void hexChkBx_CheckedChanged( object sender, EventArgs e ) {
             isHex = hexChkBx.Checked;
-            oText = (hexChkBx.Checked) ? oText.ToLower() : orgnTBx.Text;
-            if(isHex)
+            oText = isHex ? oText.ToLower() : orgnTBx.Text;
+            if (isHex) {
+                oText = oText.ToLower();
                 isHexValidated = hexValidate(oText);
+            }
+            oByte = isHex ? ConvertHex(oText) : ASCIIEncoding.ASCII.GetBytes(oText);
             allShow();
         }
 
